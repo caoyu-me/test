@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <script src="/Public/jquery.min.js"></script>
+</head>
+<body>
+<table border="1" width="50%" cellpadding="0" cellspacing="0" style="text-align: center">
+    <tr>
+    <th>选择</th>
+    <th>店铺商品</th>
+    <th>价格</th>
+    <th>数量</th>
+    <th>小计</th>
+    <th>操作</th>
+    <tr>
+    <volist name="carts" id="val">
+        <tr class="store">
+        <th>店铺：{$val.store_name}</th>
+        </tr>
+        <volist name="val['goods']" id="cart">
+             <tr class="td_{$cart.rec_id}">
+                <td ><input type="checkbox" name="id"></td>
+                <td>{$cart.goods_name}</td>
+                <td>{$cart.price}</td>
+                <td style="text-align: center"><a href="javascript:;" class="jian_{$cart.goods_id}" onclick="jian('{$cart.goods_id}')" style="padding-right: 10px;">-</a><input type="text" input_id="{$cart.goods_id}" class="input_{$cart.goods_id}" name="quantity"  value="{$cart.quantity}" style="width: 50px;"><a href="javascript:;"onclick="jia('{$cart.goods_id}')" style="padding-left:10px;  ">+</a></td>
+                <td class="subtotal_{$cart.goods_id}">¥{$cart.subtotal}</td>
+                <td><a   href="javascript:void (0);" onclick='del("{$cart.rec_id}")' id="{$cart.rec_id}">删除</a></td>
+            </tr>
+        </volist>
+        </div>
+    </volist>
+</table>
+商品总价：<span id="price">{$carts|price}</span>&nbsp;
+<a href="/index">返回商品：</a>
+</body>
+<script>
+    //删除
+   function del(id) {
+       $.ajax({
+           type: "POST",
+           url: "{:U('cart/drop')}",
+           data: {
+               spec_id:id,
+           },
+           dataType:"json",
+           success: function(res){
+               if(res.err == 1){
+                   alert(""+res.msg+"");
+                   window.location.reload();
+               }else if(res.err == 0){
+                   alert(""+res.msg+"");
+               }
+           },
+           error:function (res,errq) {
+           }
+       });
+   }
+    //减
+   function jian(id) {
+       var quantity = $('.jian_'+id).next().val();
+       quantity --;
+       if(quantity <1){
+           quantity ==1;
+           return;
+       }
+       $('.input_'+id).val(quantity);
+       $.ajax({
+           type: "POST",
+           url: "{:U('cart/update')}",
+           data: {
+               goods_id:id,
+               quantity:quantity,
+           },
+           dataType:"json",
+           success: function(res){
+               if(res.err == 1){
+                   $('#price').html(res.cart.amount);
+                   $('.subtotal_'+id).html("¥"+res.subtotal+"");
+               }else if(res.err == 0){
+                   alert(""+res.msg+"");
+               }
+           },
+           error:function (res,errq) {
+           }
+       });
+   }
+    //加
+   function jia(id) {
+       var quantity = $('.jian_'+id).next().val();
+       quantity ++;
+       $('.input_'+id).val(quantity);
+       $.ajax({
+           type: "POST",
+           url: "{:U('cart/update')}",
+           data: {
+               goods_id:id,
+               quantity:quantity,
+           },
+           dataType:"json",
+           success: function(res){
+               if(res.err == 1){
+                   $('#price').html(res.cart.amount);
+                   $('.subtotal_'+id).html("¥"+res.subtotal+"");
+               }else if(res.err == 0){
+                   alert(""+res.msg+"");
+               }
+           },
+           error:function (res,errq) {
+           }
+       });
+   }
+    $("input[type='text']").change( function() {
+        // 这里可以写些验证代码
+        var val = $(this).val();
+        var id = $(this).attr('input_id');
+        if(val <1) {
+            $(this).val(1);
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "{:U('cart/update')}",
+            data: {
+                goods_id:id,
+                quantity:val,
+            },
+            dataType:"json",
+            success: function(res){
+                if(res.err == 1){
+                    $('#price').html(res.cart.amount);
+                    $('.subtotal_'+id).html("¥"+res.subtotal+"");
+                }else if(res.err == 0){
+                    alert(""+res.msg+"");
+                }
+            },
+            error:function (res,errq) {
+            }
+        });
+    });
+</script>
+
+</html>

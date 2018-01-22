@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+    <title>忘记密码</title>
+
+    <link href="/Public/Home/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="/Public/Home/css/amazeuipc.css" rel="stylesheet" type="text/css">
+
+    <link href="/Public/Home/css/personal.css" rel="stylesheet" type="text/css">
+    <link href="/Public/Home/css/infstyle.css" rel="stylesheet" type="text/css">
+    <script src="/Public/Home/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/Public/Home/js/amazeui.min.js"></script>
+    <script src="/Public/Home/js/me_cookie.js"></script>
+</head>
+
+<body>
+<!--头 -->
+
+
+<div class="center">
+    <div class="col-main">
+        <div class="main-wrap">
+
+            <div class="user-info" style="margin-top: 100px;">
+                <!--标题 -->
+                <div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">忘记密码</strong> /
+                        <small>Reset Password</small>
+                    </div>
+                </div>
+                <hr/>
+                <div id="one" style="display: block">
+                    <div class="info-main">
+                        <div class="pwd-box clearfix">
+                            <label class="pull-left">手机号或邮箱：</label>
+                            <div class="pull-left">
+                                <input type="text" name="value" id="tel_email"   placeholder="请输入登录手机号/邮箱">
+                                <span class="redcolor displaynone width502 cellpos">*请输入正确的格式！</span>
+                            </div>
+                        </div>
+                        <div class="pwd-box clearfix">
+                            <label class="pull-left">验证码：</label>
+                            <div class="pull-left verify_div">
+                                <input type="text" name="verify" id="verify" placeholder="请输入验证码"  style="width: 150px;margin-top: -28px">
+                                <img style="cursor:pointer;margin-top: -10px" src="{:U('/reset/verify')}" id="verify_code" title="看不清楚？点击刷新" onclick="this.src = '{:U('/reset/verify')}?'+new Date().getTime()">
+                                <span class="redcolor displaynone width502 cellpos">*请输入验正码！</span>
+                            </div>
+                        </div>
+                        <div class="info-btn" style="margin-left: -40%;">
+                            <button type="submit" class="am-btn am-btn-primary" onclick="one()">提交</button>
+                         </div>
+                    </div>
+                </div>
+                <!--个人信息 -->
+                <div id="form_pwd" style="display: none">
+                    <input type="hidden" name="invalid" value="" id="invalid">
+                    <input type="hidden" name="data_val" value="" id="data_val">
+                    <div class="info-main">
+                        <div class="pwd-box clearfix">
+                            <div class="pull-left" style="margin-left:124px;">
+                                验证码发送至 <span id="user_value" style="color: red"></span>
+                                <span style="position: absolute;margin-left: 40px;" ><a href="javascript:void (0)" onclick="huoqu()"><button id="dyMobileButton" class="am-btn"  type="button">获取</button></a></span>
+                            </div>
+                        </div>
+                        <div class="pwd-box clearfix">
+                            <label class="pull-left">输入验证码：</label>
+                            <div class="pull-left">
+                                <input type="text" name="code" id="code" placeholder="请输入验证码">
+                            </div>
+                        </div>
+                        <div class="pwd-box clearfix">
+                            <label class="pull-left">输入新密码：</label>
+                            <div class="pull-left">
+                                <input type="password" name="pwd2" id="pwd2" placeholder="输入密码">
+                                <span class="redcolor displaynone width502 cellpos">*请输入6-16位密码，不能是纯数字或字母！</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-btn" style="margin-left: -40%;">
+                        <button type="submit" class="am-btn am-btn-primary" onclick="two()">确定</button>
+                        <button type="button" class="am-btn am-btn-default"  style="margin-left: 20px">取消</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--底部-->
+
+    </div>
+
+
+</div>
+</body>
+<script>
+    var c = '';
+    var v = '';
+    $('#tel_email').blur(function () {
+        var tel_email = $('#tel_email').val();
+        var tel_code =/0?(13|14|15|17|18)[0-9]{9}/;
+        var email_code =/\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+        if(!email_code.test(tel_email)){
+            //alert('不是邮箱');
+            //不是邮箱
+            if(!tel_code.test(tel_email)){
+                //alert('不是邮箱也不是手机');
+                $('#tel_email').next('span').removeClass("displaynone");
+                c = 0;
+                return false;
+            }else{
+                //alert('是手机');
+                $('#tel_email').next("span").addClass("displaynone");
+                c = 1;
+            }
+        }else{
+            //alert('是邮箱');
+            $('#tel_email').next("span").addClass("displaynone");
+            c = 1;
+        }
+    });
+    $('#verify').blur(function () {
+        var verify = $('#verify').val();
+        if(verify == ''){
+            $('.verify_div span').removeClass("displaynone");
+            v = 0;
+            return;
+        }else{
+            $('.verify_div span').addClass("displaynone");
+            v = 1;
+        }
+    });
+    function one() {
+        if(c  == 1 && v ==1){
+            $.ajax({
+                type: "POST",
+                url: "{:U('/reset/ajax')}",
+                data: {
+                    value:$('#tel_email').val(),
+                    verify:$('#verify').val(),
+                },
+                dataType:"json",
+                success: function(res){
+                    if(res.err == 0){
+                        alert(res.msg);
+                        $('#verify_code').click();
+                    }else if(res.err ==1){
+                        $('#form_pwd').show();
+                        $('#one').hide();
+                        $('#user_value').text($('#tel_email').val());
+
+                    }
+                },
+                error:function (res,errq) {
+                    alert(errq);
+                }
+            });
+        }else{
+            alert('您you未填的信息');
+        }
+
+    }
+</script>
+<script>
+    var t='';
+    var regpwd = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+    //新密码
+    $("#pwd2").blur(function () {
+        var pwd2 = $('#pwd2').val();
+        if(!regpwd.test(pwd2)){
+            $('#pwd2').next("span").removeClass("displaynone");
+            t=0;
+            return false;
+        }else{
+            $('#pwd2').next("span").addClass("displaynone");
+            t=1;
+        }
+    });
+
+    //定时
+    var countdown =10;
+    console.log(cookieget('code'));
+    console.log(cookieget('invalid'));
+    //coolie 判断
+    if(cookieget('code') > 0 && 10 > cookieget('code')){
+        countdown = Number(cookieget('code'));
+        var int = setInterval(function () { timeout();}, 1000)
+    }else{
+        cookiesave('code',0,'','','');
+    }
+    if(cookieget('invalid')){
+        $('#invalid').val(cookieget('invalid'));
+    }
+    //发送验证码
+    function SendCode(value,type,vertifi) {
+
+        $.ajax({
+            url: "{:U('Home/code/index')}",
+            data: {
+                value: value,
+                type:type,
+                vertifi:vertifi,
+                //发送的格式 1 验证码。2 地址链接
+                type2:1,
+            },
+            dataType: "json",
+            type: "post",
+            success: function (result) {
+                console.log(result);
+                cookiesave('invalid',result.invalid,'','','');
+                switch (result.err){
+                    case 0:
+                        alert('发送成功');
+                        $('#invalid').val(result.invalid)
+                        cookiesave('code',10,'','','');
+                        break;
+                    case 1:
+                        alert('在指定时间内不能重复发送,请在等待'+result.sytimer+'秒');
+                        console.log(result);
+                        $('#invalid').val(result.invalid)
+                        countdown =Number(0);
+                        break;
+                    case 2:
+                        alert('当前请求类型错误');
+                        countdown =Number(0);
+                        break;
+                    case 3:
+                        alert('邮箱发送失败');
+                        countdown =Number(0);
+                        break;
+                    case 4:
+                        alert('短信发送失败');
+                        countdown =Number(0);
+                        break;
+
+                }
+            },
+            error: function (xmlHttpRequest) {
+                console.log(xmlHttpRequest.responseText);
+            }
+        });
+    }
+    function huoqu () {
+        var select_code=$('#tel_email').val()
+        var regtel= /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+        var data_val='';
+        var type ='';
+        var vertifi='true';
+        if(regtel.test(select_code)){
+            data_val = select_code;
+            type='email';
+        }else{
+            data_val = select_code;
+            type='tel';
+        }
+        if (countdown == 10) {
+            //发送验证码
+            SendCode(data_val,type,vertifi);
+        }
+
+        if(countdown == 0){
+            $('#dyMobileButton').removeAttr('disabled');
+            $('#dyMobileButton').html( "获取");
+            countdown = 10;
+            cookiesave('code',countdown,'','','');
+            //阻止冒泡
+            clearTimeout(clear);
+            return false;
+        }else {
+            $('#dyMobileButton').attr("disabled", 'disabled');
+            $('#dyMobileButton').html(" "+countdown+"  ");
+            countdown -= 1;
+            cookiesave('code', countdown, '', '', '');
+        }
+        //定时
+        clear = setTimeout("huoqu()", 1000);
+    }
+
+    function two () {
+        if(t == 1){
+            $("#data_val").val($('#tel_email').val());
+            var data_val  = $("#data_val").val();
+            var code =$('#code').val();
+            var invalid = $('#invalid').val();
+            var pwd =$('#pwd2').val();
+            $.ajax({
+                url: "{:U('/reset/save')}",
+                data: {
+                    data_val: data_val,
+                    code:code,
+                    invalid:invalid,
+                    //发送的格式 1 验证码。2 地址链接
+                    pwd:pwd,
+                },
+                dataType: "json",
+                type: "post",
+                success: function (res) {
+
+                    if(res.err == 0){
+                        alert(res.msg);
+                        $('#verify_code').click();
+                    }else if(res.err ==1){
+                        alert(res.msg);
+                        window.location.href='/login'
+                    }
+                },
+                error: function (xmlHttpRequest) {
+                    console.log(xmlHttpRequest.responseText);
+                }
+            });
+
+        }else{
+            alert('您又尚未填的参数');
+            return false;
+        }
+    };
+    //发送验证码框 时间限制
+
+    function timeout() {
+        if(countdown == 0){
+            $('#dyMobileButton').removeAttr('disabled');
+            $('#dyMobileButton').html("获取");
+            countdown = 10;
+            cookiesave('code',countdown,'','','');
+            clearInterval(int);
+            return false;
+        }else{
+            $('#dyMobileButton').attr("disabled", 'disabled');
+            $('#dyMobileButton').html(" "+countdown+" ");
+            countdown-=1;
+            cookiesave('code',countdown,'','','');
+        }
+
+    }
+</script>
+</html>

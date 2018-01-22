@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Language" content="zh-CN"/>
+<script type="text/javascript" src="/Public/Home/js/jquery1.4.js"></script>
+<script type="text/javascript" src="/Public/Home/js/bioV4.min.js"></script>
+<script type="text/javascript" src="/Public/Home/js/jquery.lazyload.mini.js"></script>
+<title>{$mnav_case['seotile']}</title>
+<meta name="Keywords" content="{$mnav_case['keywords']}"/>
+<meta name="Description" content="{$mnav_case['description']}"/>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+<link rel="stylesheet" type="text/css" href="/Public/Home/css/basic.css"/>
+<link rel="stylesheet" type="text/css" href="/Public/Home/css/zx_info.css"/>
+<script type="text/javascript" src="/Public/Home/js/function.js"></script>
+<script type="text/javascript" src="/Public/Home/js/zx_info.js"></script>
+</head>
+<body>
+<script type="text/javascript" src="/Public/Home/js/borsertocss.js"></script><!-- 判断在IE9以下浏览器中根据像素的不同而设置的样式 --> 
+
+<!--头部代码开始-->
+
+<block name='include'> <include file='./App/Home/View/Public/header.html'/> </block>
+
+<!--头部代码结束-->
+
+<div class="hr tp-div-nexthr" style="margin-top: 0;margin-bottom: 0;padding: 0;"></div>
+<div class="container pb-15"> 
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="span12"> 
+      <!--内容页面-->
+      <div class="bd-arboxs">
+          <switch name="CONTROLLER_NAME">
+              <case value="Industry">
+                  <div class="mmdh pull-left "><a href="/industry">首页</a> &gt; <a href="">行业分析</a></div>
+              </case>
+              <case value="Data">
+                  <div class="mmdh pull-left "><a href="/data">首页</a> &gt; <a href="">数据统计</a></div>
+              </case>
+              <default />
+              <div class="mmdh pull-left "><a href="/news">首页</a> &gt; <a href="">新闻资讯</a></div>
+          </switch>
+        <div class="mmkey pull-right"><b><a href="">{$article.pkind_name}</a></b>
+          <div class="mmclear"></div>
+        </div>
+        <div class="mmclear"></div>
+        <div style="margin-top: 14px;" class="clearfix">
+          <h1 class="pull-left r-10">{$article.title}</h1>
+          <div class="pull-left pt-5 none-768" style="_margin-top:-33px; _margin-left:-10px;"> <span class="like-plug-gz clearfix pull-left r-15"> <span class="count pull-left t-5 d-none"></span> </span> </div>
+        </div>
+        <div style="margin-top: 4px;" class="clearfix">
+          <div class="pull-left fc999 l-5 "> <span class="r-15" style="font-style: normal;"> 发布时间：<i>{$article.update_time|substr=###,0,10} </i></span> <span class="r-15"> 涉及行业：{$article.pkind_name} </span> <span class="r-15">来源：<span data-obj="News" data-oid="104437" id="obj_hits" class="fc999">{$article.source}</span></span> <span class="r-15">阅读量：{$article.click}</span> </div>
+        </div>
+        <div class="view-main t-20">
+          <table style="width: 100%;" class="fc333 border-all">
+            <tbody>
+              <tr>
+                <td style="padding: 5px 12px;width: 25px;font-size: 22px;text-align: center;background: #E8E8E8; line-height: 30px;color: #999"> 导读 </td>
+                <td style="padding: 10px 10px 12px;line-height: 24px;"> {$article.description} </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="view-content" style="margin-top: 18px;"> {$article.body} </div>
+        </div>
+        <!---百度分享-->
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a><a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a><a href="#" class="bds_print" data-cmd="print" title="分享到打印"></a></div>
+        
+        <!---百度分享--> 
+       </div>
+      <div class="bd-PLboxs">
+      		<div class="bd-PLcon">
+            	<div class="bd-PLtitle clearfix">
+                	<h3>讨论区：</h3>
+                    <div class="number">还可以输入 <b>140</b> 字</div>
+                </div>
+                <div class="bd-PLbody clearfix">
+                	<p class="img">
+                    	<img src="{$user.avatar|default="/Public/Home/images/card-icons.jpg"}" alt="" width="100" height="100" />
+                    </p>
+                    <div class="text">
+                    	<textarea name="" id="" cols="30" rows="10"></textarea>
+                      
+                    </div>
+                </div>
+	            <div class="bd-PLsubmit">
+                	<input type="submit"  value="评论"/>	
+                </div>
+            </div>
+            <div class="bd-PLlist">
+            	<h3 class="bd-PLltil"><b>{$count}</b> 条评论</h3>
+                <ul class="bd-PLcon">
+                        <li>暂无任何评论！</li>
+                </ul>
+            </div>
+            
+            <div class="bd-PLpage"></div>
+      </div>	
+       
+    </div>
+    
+    <!--右侧代码-->
+    <include file='./App/Home/View/Public/arlist.html'/>
+
+
+  </div>
+</div>
+
+<!--右侧代码结束--> 
+
+<script type="text/javascript">
+
+function ajaxFun(){
+	$.ajax({
+		type: "POST",
+		url: "{:U('Liuyan/ajaxdate')}",
+		data: {
+			aid:'{$article.id}',
+			kind:'1',
+			body:$(".bd-PLcon textarea").val()
+	},
+		dataType:"json",
+		success: function(data){
+			
+			if(data.err == 1){
+				ajaxList(1);
+                alert('评论发布成功！');
+                $(".bd-PLcon textarea").val('');
+				var count = $(".bd-PLltil b");
+				count.html(Number(count.html())+1);
+			}else if(data.err == 2){
+				alert('您尚未登录!');
+				window.location.href='/login';
+			}else if(data.err == 3){
+                alert('您评论提交成功，请等待管理员审核！');
+                $(".bd-PLcon textarea").val('');
+            }else if(data.err == 4){
+                alert('请等待1小时后发送！');
+                $(".bd-PLcon textarea").val('');
+            }else  {
+				alert('请求服务器错误!')
+			}
+		},
+		error:function (data,errq) {
+			alert(errq);
+		}
+	});
+
+}
+function ajaxList(p){
+	
+	$.ajax({
+		type: "GET",
+		url: "{:U('Liuyan/ajaxlist')}",
+		data: {
+			aid:'{$article.id}',
+			kind:'1',
+			p:p
+	},
+		dataType:"json",
+		success: function(data){
+			if(data.err){
+				var datalist = data.mess;
+				var	html ="";
+				for(var key in datalist){  
+					// alert(datalist[key].name);
+				
+					 html+="<li class='clearfix'><p class='img'><img src='"+datalist[key].avatar+"' alt='' /></p><div class='con'><span class='title'>"+datalist[key].name+"</span><span>"+datalist[key].update_time+"</span><span>回复</span><div class='body'>"+datalist[key].body+"</div></div></li>";
+					
+				}
+					
+				$(".bd-PLlist .bd-PLcon").html(html);
+				$(".bd-PLcon textarea").val('');
+				
+				
+			}else{
+				alert('请求服务器错误!')
+			}
+		},
+		error:function (data,errq) {
+			//alert(123);
+			alert(errq);
+		}
+	});
+};
+
+$(function(){
+	$('.bd-PLsubmit input[type="submit"]').click(function(){
+		var til = $(".bd-PLcon textarea");
+		if(til.val()== ""){
+			alert('评论内容不能为空!');
+			til.focus();
+			return false;
+		}
+		ajaxFun();
+	});
+	  <if condition="$totalPages gt '0'">
+	  
+	 $('.bd-PLpage').twbsPagination({
+        totalPages: {$totalPages},
+        visiblePages:{$Think.CONFIG.plnum},
+        onPageClick: function (event, page) {
+			 
+			ajaxList(page);
+        }
+    });
+	</if>	
+});	
+
+</script>
+<script type="text/javascript" src="/Public/Home/js/jquery.twbsPagination.min.js"></script> 	
+
+<block name='include'> <include file='base:footer'/> </block>
+ 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</body>
+</html>

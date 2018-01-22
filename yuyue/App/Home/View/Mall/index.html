@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>商品页面</title>
+
+    <link href="/Public/Home/css/admin.css" rel="stylesheet" type="text/css" />
+    <link href="/Public/Home/css/amazeuipc.css" rel="stylesheet" type="text/css" />
+    <link href="/Public/Home/css/demo.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="/Public/Home/css/optstyle.css" rel="stylesheet" />
+    <link type="text/css" href="/Public/Home/css/stylepc.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/Public/Home/js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="/Public/Home/js/quick_links.js"></script>
+
+    <script type="text/javascript" src="/Public/Home/js/amazeui.js"></script>
+    <script type="text/javascript" src="/Public/Home/js/jquery.imagezoom.min.js"></script>
+    <script type="text/javascript" src="/Public/Home/js/jquery.flexslider.js"></script>
+    <script type="text/javascript" src="/Public/Home/js/list.js"></script>
+
+</head>
+
+<body>
+
+
+ <include file="Public:header"/>
+
+<div class="listMain">
+
+    <!--分类-->
+    <script type="text/javascript">
+        $(function() {});
+        $(window).load(function() {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                start: function(slider) {
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
+    <div class="scoll">
+        <section class="slider">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <img src="/Public/Home/images/01.jpg" title="pic" />
+                    </li>
+                    <li>
+                        <img src="/Public/Home/images/02.jpg" />
+                    </li>
+                    <li>
+                        <img src="/Public/Home/images/03.jpg" />
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!--放大镜-->
+
+    <div class="item-inform">
+        <div class="clearfixLeft" id="clearcontent">
+
+            <div class="box">
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $(".jqzoom").imagezoom();
+                        $("#thumblist li a").click(function() {
+                            $(this).parents("li").addClass("tb-selected").siblings().removeClass("tb-selected");
+                            $(".jqzoom").attr('src', $(this).find("img").attr("mid"));
+                            $(".jqzoom").attr('rel', $(this).find("img").attr("big"));
+                        });
+                    });
+                </script>
+
+                <div class="tb-booth tb-pic tb-s310">
+                    <a href="{$mall['pic'][0]}"><img src="{$mall['pic'][0]}"  rel="{$mall['pic'][0]}" class="jqzoom" /></a>
+                </div>
+
+                <ul class="tb-thumb" id="thumblist">
+
+                    <li class="tb-selected">
+                        <div class="tb-pic tb-s40">
+                            <a href="#"><img src="{$mall['pic'][0]}"  mid="{$mall['pic'][0]}" big="{$mall['pic'][0]}"></a>
+                        </div>
+                    </li>
+                    <li class="tb-selected">
+                        <div class="tb-pic tb-s40">
+                            <a href="#"><img src="{$mall['pic'][1]}" mid="{$mall['pic'][1]}" big="{$mall['pic'][1]} " ></a>
+                        </div>
+                    </li>
+                    <li class="tb-selected">
+                        <div class="tb-pic tb-s40">
+                            <a href="#"><img src="{$mall['pic'][2]}" mid="{$mall['pic'][2]}" big="{$mall['pic'][2]}"></a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+        <div class="clearfixRight">
+
+            <!--规格属性-->
+            <!--名称-->
+            <div class="tb-detail-hd">
+                <h1>
+                    {$mall.title}
+                </h1>
+            </div>
+            <div class="tb-detail-list">
+                <!--价格-->
+                <div class="tb-detail-price">
+                    <li class="price iteminfo_price">
+                        <dt>促销价</dt>
+                        <dd><em>¥</em><b class="sys_item_price">{$mall.price}</b>  </dd>
+                    </li>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+
+            <div class="pay">
+                <div class="pay-opt">
+                    <a href="yuyue.html"><span class="am-icon-home am-icon-fw">首页</span></a>
+                    <a><span class="am-icon-heart am-icon-fw">收藏</span></a>
+
+                </div>
+
+                <li>
+                    <div class="clearfix tb-btn tb-btn-basket theme-login">
+                        <a id="LikBasket" title="加入购物车" href="javascript:;" ><i></i>马上预约</a>
+                        <input type="hidden" value="{$user.id}" name="user_id" id="user_id">
+                        <input type="hidden" value="{$mall.id}" name="mall_id" id="mall_id">
+                    </div>
+                </li>
+            </div>
+
+        </div>
+
+        <div class="clear"></div>
+
+    </div>
+    <!-- introduce-->
+
+    <div class="introduce">
+        <div class="browse">
+            <div class="mc">
+                <ul>
+                    <div class="mt">
+                        <h2>看了又看</h2>
+                    </div>
+                    <volist name="recommend" id="val">
+                    <li class="first">
+                        <div class="p-img">
+                            <a  href="{:U('/mall/index',array('id'=>$val['id']))}"> <img class="" src="{$val.thumb}"> </a>
+                        </div>
+                        <div class="p-name"><a href="{:U('/mall/index',array('id'=>$val['id']))}">
+                            {$val.intro}
+                        </a>
+                        </div>
+                        <div class="p-price"><strong>￥{$val.price}</strong></div>
+                    </li>
+                    </volist>
+
+
+                </ul>
+            </div>
+        </div>
+        <div class="introduceMain">
+            <div class="am-tabs" data-am-tabs>
+                <ul class="am-avg-sm-3 am-tabs-nav am-nav am-nav-tabs">
+                    <li class="am-active">
+                        <a href="#">
+
+                            <span class="index-needs-dt-txt">宝贝详情</span></a>
+
+                    </li>
+
+                </ul>
+                <!--富文本-->
+                <div class="am-tabs-bd">
+                    {:html_entity_decode($mall['body'])}
+                </div>
+
+            </div>
+
+            <div class="clear"></div>
+
+            <include file="Public:footer"/>
+        </div>
+
+    </div>
+</div>
+
+</body>
+<script>
+    //请求
+    $('#LikBasket').click(function () {
+        var mall_id = $('#mall_id').val();
+        var user_id = $('#user_id').val();
+         if(user_id){
+             $.ajax({
+                 type: "POST",
+                 url: "{:U('/mall/yuyue/')}",
+                 data: {
+                     mall_id:mall_id ,
+                 },
+                 dataType:"json",
+                 success: function(res){
+                     console.log(res);
+                    if(res.err == '1'){
+                        layer.alert(res.msg+'兑换码：<br>'+res.code);
+                    }else if(res.err == '0'){
+                        layer.alert(res.msg+'兑换码：<br>'+res.code);
+                    }else if(res.err == '-1'){
+                        layer.alert(res.msg);
+                    }
+                 },
+                 error:function (res,errq) {
+                     alert(errq);
+                 }
+             });
+
+         }else{
+            alert('请先登录，谢谢合作');
+        }
+    });
+
+
+</script>
+</html>

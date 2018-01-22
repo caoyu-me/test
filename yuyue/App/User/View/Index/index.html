@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+    <title>个人资料</title>
+
+    <link href="/Public/Home/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="/Public/Home/css/amazeuipc.css" rel="stylesheet" type="text/css">
+
+    <link href="/Public/Home/css/personal.css" rel="stylesheet" type="text/css">
+    <link href="/Public/Home/css/infstyle.css" rel="stylesheet" type="text/css">
+    <script src="/Public/Home/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/Public/Home/js/amazeui.min.js"></script>
+
+
+</head>
+
+<body>
+<!--头 -->
+<include file="Home@Public/header"/>
+
+<div class="center">
+    <div class="col-main">
+        <div class="main-wrap">
+
+            <div class="user-info">
+                <!--标题 -->
+                <div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">个人资料</strong> /
+                        <small>Personal&nbsp;information</small>
+                    </div>
+                    <div class="am-fr user-edit"> <i class="am-icon-pencil"></i> <a href="javascript:;" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 1,}">编辑</a></div>
+                </div>
+                <hr/>
+              <!--模态框-->
+                <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
+                    <div class="am-modal-dialog">
+                        <div class="am-modal-hd">
+                            <span class="am-fl user-edit-title " >编辑个人信息</span>
+                            <a href="javascript: void(0)" class="am-close am-close-spin user-edit-a" data-am-modal-close>&times;</a>
+                        </div>
+                        <div class="info-main" >
+                            <form class="am-form am-form-horizontal">
+                                <input type="hidden" id="user-hidden-id" name="id" value="{$user.id}">
+                                <div class="am-form-group" style="margin-top: 50px;">
+                                    <label  class="am-form-label">昵称:</label>
+                                    <div class="am-form-content">
+                                        <input type="text" id="user-name1"  placeholder="请输入昵称" class="width50" name="name" value="{$user.name}">
+                                        <span class="redcolor displaynone width502 cellpos">*昵称格式有误</span>
+                                        <span class="width502 cellpos" style="color: #9d9d9d;">昵称2-10位中英文、数字及下划线！</span>
+
+                                     </div>
+                                </div>
+                                <div class="am-form-group" >
+                                    <label  class="am-form-label"><span class="redcolor">*</span>真实姓名:</label>
+                                    <div class="am-form-content">
+                                        <input type="text" id="user-name2" placeholder="请输入姓名" class="width50" name="full_name" value="{$user.full_name}">
+                                        <span class="redcolor displaynone width502 cellpos">*真实姓名填写有误</span>
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="user-name" class="am-form-label"><span class="redcolor">*</span>身份证号</label>
+                                    <div class="am-form-content">
+                                        <input type="text" id="user-id" maxlength="18" placeholder="请输入身份证号"
+                                               name="id_code"
+                                               value="{$user.id_code}"
+                                               class="width50 nouse"
+                                               onblur="ValidID(this.value)"
+                                               onkeyup="this.value=this.value.replace(/\D/g, '')">
+
+                                        <span class="redcolor displaynone width502 cellpos">*请输入18位数字的身份证号码</span>
+                                        <div class="redcolor width502 cellpos" id="rst"></div>
+
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label class="am-form-label">性别</label>
+                                    <div class="am-form-content sex">
+                                        <if condition="$user.sex == 1">
+                                            <label class="am-radio-inline">
+                                                <input  type="radio" name="sex" value="1" checked> 男
+                                            </label>
+                                            <else/>
+                                            <label class="am-radio-inline">
+                                                <input  type="radio" name="sex" value="1"> 男
+                                            </label>
+                                        </if>
+
+                                        <if condition="$user.sex == 2">
+                                            <label class="am-radio-inline">
+                                                <input  type="radio" name="sex" value="2" checked > 女
+                                            </label>
+                                            <else/>
+                                            <label class="am-radio-inline">
+                                                <input  type="radio" name="sex" value="2" > 女
+                                            </label>
+                                        </if>
+
+
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="user-phone" class="am-form-label"><span class="redcolor">*</span>电话</label>
+                                    <div class="am-form-content">
+                                        <input id="user-phone" placeholder="请输入电话号码" maxlength="12" name="tel" value="{$user.tel}" class="width50" type="text"
+                                               onkeyup="this.value=this.value.replace(/\D/g, '')">
+                                        <span class="redcolor displaynone width502 cellpos">*请输入电话号码</span>
+                                        <span class="width502 cellpos" style="color: #9d9d9d;">更改即为登录手机号码</span>
+
+                                    </div>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="user-email" class="am-form-label"><span class="redcolor">*</span>电子邮件</label>
+                                    <div class="am-form-content">
+                                        <input id="user-email" placeholder="请输入电子邮件" type="email" class="width50" name="email" value="{$user.email}">
+                                        <span class="redcolor displaynone width502 cellpos">*请输入电子邮件</span>
+                                        <span id="needmove" class="redcolor displaynone width502 cellpos">*格式不正确</span>
+                                    </div>
+                                </div>
+                                <div class="info-btn">
+                                    <div class="am-btn am-btn-primary" id="submit" style="margin-bottom: 50px;">确定</div>
+                                    <div class="am-btn am-btn-close" data-am-modal-close style="margin-bottom: 50px;">取消</div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--头像 -->
+                <div class="user-infoPic">
+
+                    <div class="filePic">
+                        <div class="upImage"> {:UpImage("avatar",100,100,$user['avatar'],user,$user['id'])}</div>
+                         <!--<div class="user-save-img"><a href="javascript:;">更换头像</a></div>-->
+
+                     </div>
+
+                    <p class="am-form-help">头像</p>
+
+                    <div class="info-m">
+                        <div>&nbsp;</div>
+                        <div class="u-level">
+									<span class="rank r2">
+							             <s class="vip1"></s><b>昵称：<i>{$user.name}</i></b>
+						            </span>
+                        </div>
+                        <div class="u-safety">
+                            &nbsp;
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--个人信息 -->
+                <div class="info-main">
+                    <div class="info-box clearfix">
+                        <label class="pull-left">真实姓名</label>
+                        <div class="pull-left">
+                            {$user.full_name}
+                        </div>
+                    </div>
+                    <div class="info-box clearfix">
+                        <label class="pull-left">身份证号</label>
+                        <div class="pull-left">
+                            <if condition="$user.id_code == null">
+                                <else/>
+                                {$user.id_code|substr=###,0,6}xxxxxxxxx{$user.id_code|substr=###,14,18}
+                            </if>
+                        </div>
+
+                    </div>
+                    <div class="info-box clearfix">
+                        <label class="pull-left">性别</label>
+                        <div class="pull-left ">
+                            <if condition="$user.sex == 1">
+                                男
+                                <elseif condition="$user.sex == 2"/>
+                                女
+                                <else/>
+
+                            </if>
+                        </div>
+                    </div>
+                    <div class="info-box clearfix">
+                        <label  class="pull-left">电话</label>
+                        <div class="pull-left">
+                            {$user.tel}
+                        </div>
+
+                    </div>
+                    <div class="info-box clearfix">
+                        <label  class="pull-left">电子邮件</label>
+                        <div class="pull-left">
+                            {$user.email}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <include file="Home@Public/footer"/>
+    </div>
+
+    <include file="Home@Public/menu"/>
+</div>
+
+</body>
+<script type="text/javascript">
+    $("#user-email").blur(function () {
+        var email = $("#user-email").val();
+        if (email == '') {
+            $(this).next("span").removeClass("displaynone");
+            $("#needmove").addClass("displaynone");
+            return;
+        } else if (email != "") {
+            var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+            isok = reg.test(email);
+            if (!isok) {
+                $("#needmove").removeClass("displaynone");
+                $(this).next("span").addClass("displaynone");
+                return false;
+            }
+        };
+//      alert("ok 输入正确");
+        $(this).next("span").addClass("displaynone");
+        $("#needmove").addClass("displaynone");
+    });
+</script>
+<script type="text/javascript">
+//身份验证
+    function ValidID(id) {
+        var result = id_vertifi(id);
+        console.log(result);
+        if(result.pass == false){
+            showRst(result.msg);
+        }else{
+            showRst('');
+         }
+    }
+    function showRst(msg) {
+        document.getElementById('rst').innerHTML = msg
+    }
+</script>
+
+<script type="text/javascript">
+    $("input[type='text']").each(function () {
+        $(".am-form-content input").blur(function () {
+            var inputId = $(this).attr('id');
+            if ($(this).val() == "" && inputId != 'user-id') {
+                $(this).next("span").removeClass("displaynone");
+            }
+            else {
+                $(this).next("span").addClass("displaynone");
+            }
+        });
+    });
+    $("#submit").click(function () {
+        var reg_user_name =  /^[\u4e00-\u9fa5|a-zA-Z0-9_-]{2,10}$/;//{2,10}表示字符的长度是2-10
+
+        var regName =/^[\u4e00-\u9fa5]{2,4}$/;
+        var regtel= /0?(13|14|15|17|18)[0-9]{9}/;
+        var regemail = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
+        var name = $('#user-name1').val();
+        var full_name = $('#user-name2').val();
+        var sex = $("input[name='sex']:checked").val()
+        var id_code = $('#user-id').val();
+        var tel =$('#user-phone').val();
+        var email = $('#user-email').val();
+        if(!reg_user_name.test(name)){
+            $('#user-name1').next("span").removeClass("displaynone");
+            return false;
+        }else{
+            $('#user-name1').next("span").addClass("displaynone");
+        }
+        if(!regName.test(full_name)){
+            $('#user-name2').next("span").removeClass("displaynone");
+            return false;
+        }else{
+            $('#user-name2').next("span").addClass("displaynone");
+        }
+        var result_id = id_vertifi(id_code);
+         if(result_id.pass == false){
+            showRst(result_id.msg);
+             return false;
+        }else{
+            showRst('');
+        }
+
+         if(!regtel.test(tel)){
+            $('#user-phone').next("span").removeClass("displaynone");
+             return false;
+        }else{
+            $('#user-phone').next("span").addClass("displaynone");
+        }
+
+        if(!regemail.test(email)){
+            $('#user-email').next("span").removeClass("displaynone");
+            return false;
+        }else{
+            $('#user-email').next("span").addClass("displaynone");
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "{:U('User/user/edit')}",
+            data: {
+                id:$('#user-hidden-id').val(),
+                name:name,
+                full_name:full_name,
+                id_code:id_code,
+                sex:sex,
+                tel:tel,
+                email:email,
+            },
+            dataType:"json",
+            success: function(res){
+                console.log(res);
+                if(res.err == '1'){
+                    window.location.reload();
+                }else if(res.err == '0'){
+                    alert(res.msg);
+                    return;
+                }
+            },
+            error:function (res,errq) {
+                alert(errq);
+            }
+        });
+
+
+    });
+</script>
+<script>
+
+    function id_vertifi(code){
+        //身份证号合法性验证
+        //支持15位和18位身份证号
+        //支持地址编码、出生日期、校验位验证
+        var city={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外 "};
+        var row={
+            'pass':true,
+            'msg':'验证成功'
+        };
+        if(!code || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[xX])$/.test(code)){
+            row={
+                'pass':false,
+                'msg':'身份证号格式错误'
+            };
+        }else if(!city[code.substr(0,2)]){
+            row={
+                'pass':false,
+                'msg':'身份证号地址编码错误'
+            };
+        }else{
+            //18位身份证需要验证最后一位校验位
+            if(code.length == 18){
+                code = code.split('');
+                //∑(ai×Wi)(mod 11)
+                //加权因子
+                var factor = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 ];
+                //校验位
+                var parity = [ 1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2 ];
+                var sum = 0;
+                var ai = 0;
+                var wi = 0;
+                for (var i = 0; i < 17; i++)
+                {
+                    ai = code[i];
+                    wi = factor[i];
+                    sum += ai * wi;
+                }
+                if(parity[sum % 11] != code[17].toUpperCase()){
+                    row={
+                        'pass':false,
+                        'msg':'身份证号校验位错误'
+                    };
+                }
+            }
+        }
+        return row;
+    }
+
+</script>
+</html>

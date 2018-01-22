@@ -1,0 +1,55 @@
+<div class="hmtop">
+    <!--顶部导航条 -->
+    <div class="am-container header">
+        <ul class="message-l">
+            <div class="topMessage">
+                <div class="menu-hd">
+                    <a href="/">首页</a>&nbsp;&nbsp;
+                    <if condition="$_SESSION['user_id']=='' ">
+                    <a href="{:U('/login')}" target="_top" class="h">登录</a>&nbsp;&nbsp;
+                    <a href="{:U('/register')}" target="_top">免费注册</a>
+                    <else/>
+                        <a href="{:U('/user')}" ><span style="color: #9d9d9d">
+                            <if condition="$user['name']=='' ">
+                                    {$user.tel}
+                                <elseif condition="$user['tel']==''"/>
+                                    {$user.email}
+                                    <else/>
+                                {$user.name}
+                            </if>
+                            </span>
+                        </a> &nbsp;
+                        <a href="{:U('/login/logout')}">退出</a>
+                    </if>
+                </div>
+            </div>
+        </ul>
+        <ul class="message-r">
+            <div class="topMessage home">
+                <div class="menu-hd"><a href="{:U('/user/service')}" target="_top" class="h">我的预约</a></div>
+            </div>
+            <div class="topMessage favorite">
+                <div class="menu-hd"><a href="#" target="_top"><span>帮助</span></a>
+                </div>
+            </div>
+        </ul>
+    </div>
+
+    <!--悬浮搜索框-->
+
+    <div class="nav white">
+         <div class="logoBig">
+            <li><a href="/"><img src="/Public/Home/images/logobig.png"/></a></li>
+        </div>
+
+        <div class="search-bar pr">
+            <a name="index_none_header_sysc" href="#"></a>
+            <form>
+                <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+                <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+            </form>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+</div>

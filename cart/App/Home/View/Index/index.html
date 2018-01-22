@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+     <script src="/Public/jquery-3.2.1.min.js"></script>
+ </head>
+<body>
+<table border="1" width="50%" cellpadding="0" cellspacing="0" style="text-align: center">
+
+    <th>代号</th>
+    <th>名称</th>
+    <th>价格</th>
+    <th>店铺</th>
+    <th>数量</th>
+    <th>操作</th>
+    <volist name="food" id="val">
+        <tr>
+            <td>{$val.id}</td>
+            <td>{$val.name}</td>
+            <td>{$val.price}</td>
+            <td>{$val.store_name}</td>
+            <td><input type="text" value="1" style="width: 40px;" name="quantity"></td>
+            <td><a href="javascript:void (0);" id="{$val.id}">购买</a></td>
+        </tr>
+    </volist>
+    <p>
+        <a href="{:U('cart/index')}">查看购物车</a>
+</table>
+</body>
+<script>
+    $("table a").click(function () {
+        var index = $("table a").index(this);
+        var id=$(this).attr('id');
+        var quantity = $("table input").eq(index).val();
+//        console.log(quantity);
+        $.ajax({
+            type: "POST",
+            url: "{:U('cart/add')}",
+            data: {
+                spec_id:id,
+                quantity:quantity,
+            },
+            dataType:"json",
+            success: function(res){
+                if(res.err == 1){
+                    alert("商品添加成功,种类"+res.cart.kinds+",总价"+res.cart.amount+"");
+                }else if(res.err == 0){
+                    console.log(res.msg);
+                    alert("商品添加失败,"+res.msg+"");
+                }
+            },
+            error:function (res,errq) {
+            }
+        });
+
+    });
+    function buy(n) {
+
+        console.log( $(this).index('table'));
+
+        return;
+
+
+    }
+
+</script>
+</html>

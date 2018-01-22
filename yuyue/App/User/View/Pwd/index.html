@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+    <title>个人资料</title>
+
+    <link href="/Public/Home/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="/Public/Home/css/amazeuipc.css" rel="stylesheet" type="text/css">
+
+    <link href="/Public/Home/css/personal.css" rel="stylesheet" type="text/css">
+    <link href="/Public/Home/css/infstyle.css" rel="stylesheet" type="text/css">
+    <script src="/Public/Home/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/Public/Home/js/amazeui.min.js"></script>
+    <script src="/Public/Home/js/me_cookie.js"></script>
+
+
+</head>
+
+<body>
+<!--头 -->
+<include file="Home@Public/header"/>
+
+<div class="center">
+    <div class="col-main">
+        <div class="main-wrap">
+
+            <div class="user-info">
+                <!--标题 -->
+                <div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">重置密码</strong> /
+                        <small>Reset Password</small>
+                    </div>
+                </div>
+                <hr/>
+
+
+                <!--个人信息 -->
+                <form action="{:U('/user/pwd/save')}" method="post" id="form_pwd">
+                    <input type="hidden" name="invalid" value="" id="invalid">
+                <div class="info-main">
+                    <div class="pwd-box clearfix">
+                        <label class="pull-left">输入原始原密码：</label>
+                        <div class="pull-left">
+                            <input type="password" name="pwd" id="pwd"   placeholder="再次输入密码">
+                            <span class="redcolor displaynone width502 cellpos">*请输入6-16位密码，不能是纯数字或字母！</span>
+                        </div>
+
+                    </div>
+                    <div class="pwd-box clearfix">
+                        <label class="pull-left">选择方式：</label>
+                        <div class="pull-left">
+                            <select data-am-selected id="select_code" name="data_val">
+                                <option  value="{$user.tel}" selected>发送验证码至{$user.tel}</option>
+                                <option  value="{$user.email}" >发送验证码至{$user.email}</option>
+                            </select>
+                            <span style="position: absolute;margin-left: 195px;margin-top: -45px;" ><a href="javascript:void (0)" onclick="huoqu()"><button id="dyMobileButton" class="am-btn"  type="button">获取</button></a></span>
+                         </div>
+                    </div>
+                    <div class="pwd-box clearfix">
+                        <label class="pull-left">输入验证码：</label>
+                        <div class="pull-left">
+                            <input type="text" name="code" id="code" placeholder="请输入验证码">
+                        </div>
+                    </div>
+                    <div class="pwd-box clearfix">
+                        <label class="pull-left">输入新密码：</label>
+                        <div class="pull-left">
+                            <input type="password" name="pwd2" id="pwd2" placeholder="输入密码">
+                            <span class="redcolor displaynone width502 cellpos">*请输入6-16位密码，不能是纯数字或字母！</span>
+                        </div>
+
+                    </div>
+                    <div class="pwd-box clearfix">
+                        <label class="pull-left">确认新密码：</label>
+                        <div class="pull-left ">
+                            <input type="password" name="pwd3" id="pwd3" placeholder="再次输入密码">
+                            <span class="redcolor displaynone width502 cellpos">*请输入6-16位密码，不能是纯数字或字母！</span>
+                        </div>
+
+                    </div>
+                </div>
+                    <div class="info-btn" style="margin-left: -40%;">
+                        <button type="submit" class="am-btn am-btn-primary">确定</button>
+                        <button type="button" class="am-btn am-btn-default"  style="margin-left: 20px">取消</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!--底部-->
+        <include file="Home@Public/footer"/>
+    </div>
+
+    <include file="Home@Public/menu"/>
+</div>
+</body>
+<script>
+    var t='';
+    var regpwd = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+    $("#pwd").blur(function () {
+        var pwd = $('#pwd').val();
+          if(!regpwd.test(pwd)){
+            $('#pwd').next("span").removeClass("displaynone");
+            t=0;
+            return false;
+        }else{
+            $('#pwd').next("span").addClass("displaynone");
+              t=1;
+        }
+    });
+    $("#pwd2").blur(function () {
+        var pwd2 = $('#pwd2').val();
+        if(!regpwd.test(pwd2)){
+            $('#pwd2').next("span").removeClass("displaynone");
+            t=0;
+            return false;
+        }else{
+            $('#pwd2').next("span").addClass("displaynone");
+            t=1;
+        }
+    });
+    $("#pwd3").blur(function () {
+        var pwd3 = $('#pwd3').val();
+        if(!regpwd.test(pwd3)){
+            $('#pwd3').next("span").removeClass("displaynone");
+            t=0;
+            return false;
+        }else{
+            $('#pwd3').next("span").addClass("displaynone");
+            t=1;
+        }
+    });
+    
+    //定时
+    var countdown =10;
+    console.log(cookieget('code'));
+    console.log(cookieget('invalid'));
+    //coolie 判断
+    if(cookieget('code') > 0 && 10 > cookieget('code')){
+        countdown = Number(cookieget('code'));
+        var int = setInterval(function () { timeout();}, 1000)
+    }else{
+        cookiesave('code',0,'','','');
+    }
+    if(cookieget('invalid')){
+        $('#invalid').val(cookieget('invalid'));
+    }
+    //发送验证码
+    function SendCode(value,type,vertifi) {
+
+        $.ajax({
+            url: "{:U('Home/code/index')}",
+            data: {
+                value: value,
+                type:type,
+                vertifi:vertifi,
+                //发送的格式 1 验证码。2 地址链接
+                type2:1,
+            },
+            dataType: "json",
+            type: "post",
+            success: function (result) {
+                console.log(result);
+                cookiesave('invalid',result.invalid,'','','');
+                switch (result.err){
+                    case 0:
+                        alert('发送成功');
+                        $('#invalid').val(result.invalid)
+                        cookiesave('code',10,'','','');
+                        break;
+                    case 1:
+                        alert('在指定时间内不能重复发送,请在等待'+result.sytimer+'秒');
+                        console.log(result);
+                        $('#invalid').val(result.invalid)
+                        countdown =Number(0);
+                        break;
+                    case 2:
+                        alert('当前请求类型错误');
+                        countdown =Number(0);
+                        break;
+                    case 3:
+                        alert('邮箱发送失败');
+                        countdown =Number(0);
+                        break;
+                    case 4:
+                        alert('短信发送失败');
+                        countdown =Number(0);
+                        break;
+
+                }
+            },
+            error: function (xmlHttpRequest) {
+                console.log(xmlHttpRequest.responseText);
+            }
+        });
+    }
+    function huoqu () {
+        var select_code=$('#select_code').val()
+        var regtel= /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+        var data_val='';
+        var type ='';
+        var vertifi='true';
+        if(regtel.test(select_code)){
+            data_val = select_code;
+            type='email';
+        }else{
+            data_val = select_code;
+            type='tel';
+        }
+        if (countdown == 10) {
+
+            //发送验证码
+            SendCode(data_val,type,vertifi);
+        }
+
+        if(countdown == 0){
+            $('#dyMobileButton').removeAttr('disabled');
+            $('#dyMobileButton').html( "获取");
+            countdown = 10;
+            cookiesave('code',countdown,'','','');
+            //阻止冒泡
+            clearTimeout(clear);
+            return false;
+        }else {
+            $('#dyMobileButton').attr("disabled", 'disabled');
+            $('#dyMobileButton').html(" "+countdown+"  ");
+            countdown -= 1;
+            cookiesave('code', countdown, '', '', '');
+        }
+        //定时
+        clear = setTimeout("huoqu()", 1000);
+    }
+
+    $("#form_pwd").submit(function () {
+
+        if(t == 1){
+            submit();
+        }else{
+            alert('您又尚未填的参数');
+            return false;
+        }
+    });
+    //发送验证码框 时间限制
+
+    function timeout() {
+        if(countdown == 0){
+            $('#dyMobileButton').removeAttr('disabled');
+            $('#dyMobileButton').html("获取");
+            countdown = 10;
+            cookiesave('code',countdown,'','','');
+            clearInterval(int);
+            return false;
+        }else{
+            $('#dyMobileButton').attr("disabled", 'disabled');
+            $('#dyMobileButton').html(" "+countdown+" ");
+            countdown-=1;
+            cookiesave('code',countdown,'','','');
+        }
+
+    }
+</script>
+</html>

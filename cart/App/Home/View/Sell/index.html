@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="/Public/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<table border="1" width="50%" cellpadding="0" cellspacing="0">
+
+        <th>代号</th>
+        <th>名称</th>
+        <th>价格</th>
+        <th>种类</th>
+        <th>库存量</th>
+        <th>操作</th>
+    <volist name="food" id="val">
+    <tr>
+        <td>{$val.id}</td>
+        <td>{$val.name}</td>
+        <td>{$val.price}</td>
+        <td>{$val.kind}</td>
+        <td>{$val.number}</td>
+        <td><a href="javascript:;" value="{$val.id}" onclick="buy()">购买</a></td>
+    </tr>
+    </volist>
+    <p>
+        <a href="gouwuche.php">查看购物车</a>
+        <a href="main.php">浏览商品</a>
+        <a href="zhanghu.php">查看账户</a> </p>
+</table>
+</body>
+<script>
+    function buy() {
+        
+    }
+</script>
+</html>

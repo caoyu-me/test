@@ -1,0 +1,330 @@
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <script type="text/javascript" src="__PUBLIC__/Home/js/jquery1.4.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/bioV4.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/jquery.lazyload.mini.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/dyfrom.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/birthday.js"></script>
+    <title>个人中心</title>
+    <meta name="Keywords" content="个人中心"/>
+    <meta name="Description" content="个人中心"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/xm_write.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/basic.css"/>
+
+    <script type="text/javascript" src="__PUBLIC__/Home/js/function.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/xm_write.js"></script>
+
+    <style type="text/css">
+        select {
+        width: 70px;
+        border: 1px solid #CCC;
+        background-color: #FFF;
+        font-family: '微软雅黑';
+        height: 30px;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript" src="__PUBLIC__/Home/js/borsertocss.js"> </script><!-- 判断在IE9以下浏览器中根据像素的不同而设置的样式 -->
+
+<!--头部代码开始-->
+
+<block name='include'><include file='./App/Home/View/Public/header.html'/></block>
+
+<!--头部代码结束-->
+
+<div class="hr tp-div-nexthr" style="margin-top: 0;margin-bottom: 0;padding: 0;"></div>
+<div class="container pb-15">
+    <!-- Example row of columns -->
+    <div class="row">
+
+        <block name='include'><include file='./App/Home/View/Public/user.html'/></block>
+
+
+        <!--右侧代码-->
+
+        <div class="span11">
+
+
+            <!--内容页面-->
+            <!--求购表单-->
+            <div class="label-div b-30 border-all pt-5 t-20" style="position: relative; padding-left: 0;">
+                <div class="txmd">
+
+                    <h4 class="mmh4 t-10">个人信息</h4>
+
+                    <form action="{:U('User/edit')}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{$user.id}">
+
+                        <div  class="basic">
+                            您的基本资料
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="inputPic">头像
+                            </label>
+                            <div class="controls" style="position: relative;">
+                                 <!--name 宽 高 图片地址 类别 0user 1 Sell 2 buy   id-->
+                                <div class="">{:UpImage("avatar",100,100,$user['avatar'],user,$user['id'])}</div>
+                                <span class="help-inline"></span>
+                                <p style="color: #ccc;margin-bottom: 0;">仅支持jpg、gif、png、bmp、jpeg，且小于1MB。</p>
+                            </div>
+
+                            <div class="controls" style="position: relative;">
+
+
+                            <!--<eq name="user.avatar" value="">-->
+                                <!--<div style="width: 103px;height: 103px">-->
+                                    <!--<img src="__PUBLIC__/Home/images/user_180.gif" id="pic" style="width: 100px;height: 100px; cursor: pointer;float: left;  ">-->
+                                <!--</div>-->
+                                <!--<input  type="file" name="avatar" value=""  id="upload" style="display: none"    >-->
+                                 <!--<else/>-->
+                                <!--<div style="width: 306px;height: 103px">-->
+                                    <!--<img src="{$user.avatar}" id="pic" style="width: 100px;height: 100px; cursor: pointer;float: left;  ">-->
+                                <!--</div>-->
+                                <!--<input  type="file" name="avatar" value=""  id="upload" style="display: none"    >-->
+                                <!--<input  type="hidden" name="avatar" value="{$user.avatar}"    style="display: none">-->
+                            <!--</eq>-->
+                            </div>
+                            <div class="mmclear"></div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="inputPhone"><span class="colorred">*</span>电话
+                            </label>
+                            <div class="controls">
+                                <input type="text" id="inputPhone" value="{$user.tel}" name="tel"
+                                       placeholder="" maxlength="30" rel="input-phone"
+                                       class="input-xlarge placeholder on" >
+                                <span class="help-inline"></span>
+                            </div>
+                            <div class="mmclear"></div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPhone"><span class="colorred">*</span>邮箱
+                            </label>
+                            <div class="controls">
+                                <input type="text" id="inputemail" value="{$user.email}" name="tel"
+                                       placeholder="" maxlength="30" rel="input-phone"
+                                       class="input-xlarge placeholder on" >
+                                <span class="help-inline"></span>
+                            </div>
+                            <div class="mmclear"></div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPhone">微信号
+                            </label>
+
+                            <div class="controls">
+                                <input type="text" id="inputWeixin" value="{$user.wxid}" name="wxid" placeholder="" maxlength="30" rel="input-phone"
+                                       class="input-xlarge placeholder on" >
+                                <span class="help-inline"></span>
+                            </div>
+                            <div class="mmclear"></div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPhone">QQ
+                            </label>
+
+                            <div class="controls">
+                                <input type="text" id="inputQQ" value="{$user.qq}" name="qq"
+                                       placeholder="" maxlength="30" rel="input-phone"
+                                       class="input-xlarge placeholder on" >
+                                <span class="help-inline"></span>
+                            </div>
+                            <div class="mmclear"></div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPhone">生日
+                            </label>
+
+                            <div class="controls">
+                                <eq name="user.birth" value="">
+                                    <select class="sel_year" rel="1995" name="year"> </select> 年
+                                    <select class="sel_month" rel="1" name="month"> </select> 月
+                                    <select class="sel_day" rel="1" name="day"> </select> 日
+                                    <else/>
+                                    <select class="sel_year" rel="{$birth[0]}" name="year"> </select> 年
+                                    <select class="sel_month" rel="{$birth[1]}" name="month"> </select> 月
+                                    <select class="sel_day" rel="{$birth[2]}" name="day"> </select> 日
+                                </eq>
+
+                            </div>
+                            <div class="mmclear"></div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="inputPhone">地址
+                            </label>
+
+                            <div class="controls">
+                                <input type="text" id="address" value="{$user.address}" name="address"
+                                       placeholder="" maxlength="30" rel="input-phone"
+                                       class="input-xlarge placeholder on" >
+                                <span class="help-inline"></span>
+                            </div>
+                            <div class="mmclear"></div>
+                        </div>
+                        <div class="control-group">
+                        <label class="control-label" for="inputPhone">性别
+                        </label>
+
+                        <div class="controls" >
+
+                            <eq name="user.sex" value="1">
+                                <input name="sex" type="radio" value="1" checked >
+                                <span class="text">男</span>
+                                <else/>
+                                <input name="sex" type="radio" value="1" >
+                                <span class="text">男</span>
+                            </eq>
+
+                            <eq name="user.sex" value="2">
+                                <input name="sex" type="radio" value="2" checked >
+                                <span class="text">女</span>
+                                <else/>
+                                <input name="sex" type="radio" value="2" >
+                                <span class="text">女</span>
+                            </eq>
+
+                        </div>
+                        <div class="mmclear"></div>
+                    </div>
+
+                        <div class="control-group">
+                            <label class="control-label" for="inputPhone">传真
+                            </label>
+
+                            <div class="controls">
+                                <input type="text" id="inputfax" value="{$user.fax}" name="fax"
+                                       placeholder="" maxlength="30" rel="input-phone"
+                                       class="input-xlarge placeholder on" >
+                                <span class="help-inline"></span>
+                            </div>
+                            <div class="mmclear"></div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPhone">邮编
+                            </label>
+
+                            <div class="controls">
+                                <input type="text" id="inputcode" value="{$user.code}" name="code"
+                                       placeholder="" maxlength="30" rel="input-phone"
+                                       class="input-xlarge placeholder on" >
+                                <span class="help-inline"></span>
+                            </div>
+                            <div class="mmclear"></div>
+                        </div>
+                </div>
+                <div class="basic" style="border-top:1px solid #ccc; text-align:center; margin-left:15px; padding:10px 0px 5px 0px;">
+
+                    <input type="button" onclick="resetpreview();" value="重置"/>
+                    <input type="submit" value="修改"/>
+
+                </div>
+
+                <div class="mmclear"></div>
+
+                </form>
+
+            </div>
+            <!--求购表单-->
+
+
+        </div>
+
+        <block name='include'><include file='./App/Home/View/Public/user_right.html'/></block>
+
+    </div>
+</div>
+
+
+
+
+<!-- /container -->
+
+<div class="container">
+
+    <div class="hr"></div>
+
+</div>
+
+<!-- /container -->
+
+
+
+
+<block name='include'><include file='./App/Home/View/Public/footer.html'/></block>
+
+
+<script type="text/javascript">
+    function preview(file)
+    {
+        var prevDiv = document.getElementById('preview');
+        if (file.files && file.files[0])
+        {
+            var reader = new FileReader();
+            reader.onload = function(evt){
+                prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';
+            }
+
+            reader.readAsDataURL(file.files[0]);
+        }
+        else
+        {
+            prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+        }
+    }
+
+    function resetpreview(){
+
+        if ($(preview).val() == null){
+            document.getElementsByClassName('img').src = '../../../../Public/Home/images/160160.png';
+        }
+    }
+
+</script>
+<script>
+    $(function() {
+        $("#pic").click(function () {
+            $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+            $("#upload").on("change",function(){
+                var objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+                if (objUrl) {
+                    $("#pic").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+                }
+            });
+        });
+    });
+
+    //建立一個可存取到該file的url
+    function getObjectURL(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+</script>
+<script>
+    $(function () {
+        $.ms_DatePicker({
+            YearSelector: ".sel_year",
+            MonthSelector: ".sel_month",
+            DaySelector: ".sel_day"
+        });
+    });
+</script>
+</body>
+</html>

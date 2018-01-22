@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <script type="text/javascript" src="__PUBLIC__/Home/js/jquery1.4.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/bioV4.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/jquery.lazyload.mini.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/dyfrom.js"></script>
+    <title>个人中心</title>
+    <meta name="Keywords" content="个人中心"/>
+    <meta name="Description" content="个人中心"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/xm_write.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/b_page.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/basic.css"/>
+
+    <script type="text/javascript" src="__PUBLIC__/Home/js/function.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/xm_write.js"></script>
+
+</head>
+<body>
+<script type="text/javascript" src="__PUBLIC__/Home/js/borsertocss.js"> </script><!-- 判断在IE9以下浏览器中根据像素的不同而设置的样式 -->
+
+<!--头部代码开始-->
+
+<block name='include'><include file='./App/Home/View/Public/header.html'/></block>
+<!--头部代码结束-->
+
+<div class="hr tp-div-nexthr" style="margin-top: 0;margin-bottom: 0;padding: 0;"></div>
+<div class="container pb-15">
+    <!-- Example row of columns -->
+    <div class="row">
+
+        <block name='include'><include file='./App/Home/View/Public/user.html'/></block>
+
+
+        <!--右侧代码-->
+
+        <div class="span11">
+
+
+            <!--内容页面-->
+
+            <div class="label-div b-30 pt-5 t-20 pl-10 clearfix service_info" style="position: relative;min-height: 450px;">
+
+                <ul class="blist">
+                    <li> <h3 class="active" style="float: left"><a href="/user/Service/?act=1">系统消息</a><span class="servive_num l-5">  |</span></h3></li>
+                    <li><h3 class="" > <a href="/user/Service/?act=2" id="user">&nbsp;&nbsp;用户信息</a><span class="servive_num l-5"> </span></h3></li>
+                </ul>
+
+                <div style="width: 800px;height: 500px;overflow: auto;overflow-x:hidden;margin-top: 20px;margin-left: 18px">
+                 {$body}
+                </div>
+            </div>
+
+
+        </div>
+
+        <block name='include'><include file='./App/Home/View/Public/user_right.html'/></block>
+
+    </div>
+
+    <!--右侧代码结束-->
+
+
+    <!-- /container -->
+
+    <div class="container">
+
+        <div class="hr"></div>
+
+    </div>
+
+    <!-- /container -->
+
+</div>
+<block name='include'><include file='./App/Home/View/Public/footer.html'/></block>
+
+</body>
+</html>

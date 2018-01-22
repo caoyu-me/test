@@ -1,0 +1,34 @@
+<aside class="menu">
+    <ul>
+        <li class="person">
+            <ul>
+                <li><a href="{:U('/user')}">个人信息</a></li>
+            </ul>
+        </li>
+        <li class="person">
+            <ul>
+                <li><a href="{:U('/user/service')}">我的预约</a></li>
+            </ul>
+        </li>
+        <li class="person">
+            <ul>
+                <li><a href="{:U('/user/pwd')}">重置密码</a></li>
+            </ul>
+        </li>
+        <li class="person">
+            <ul>
+                <li><a href="{:U('/login/logout')}">安全退出</a></li>
+            </ul>
+        </li>
+
+    </ul>
+</aside>
+<script>
+    var curr_url = window.location.pathname;  //获取当前URL
+    $('.menu a').each(function(){  //循环导航的a标签
+        var href = $(this).attr('href'); //a标签中的href链接
+        if(href == curr_url){  //如果当前URL,和a标签中的href相等。
+             $(this).parent().addClass('active');  //那么就给这个a标签增加home_page类。
+        }
+    })
+</script>

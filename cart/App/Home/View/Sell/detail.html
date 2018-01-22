@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <script type="text/javascript" src="__PUBLIC__/Home/js/jquery1.4.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/bioV4.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/jquery.lazyload.mini.js"></script>
+    <title>{$mnav_case['seotile']}-买家信息</title>
+
+    <meta name="Keywords" content="{$mnav_case['keywords']}"/>
+    <meta name="Description" content="{$mnav_case['description']}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/basic.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/tzjg.css"/>
+     <script type="text/javascript" src="__PUBLIC__/Home/js/function.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/tzjg.js"></script>
+
+</head>
+<body>
+<script type="text/javascript" src="__PUBLIC__/Home/js/borsertocss.js"> </script><!-- 判断在IE9以下浏览器中根据像素的不同而设置的样式 -->
+
+<!--头部代码开始-->
+<block name='include'><include file='./App/Home/View/Public/header.html'/></block>
+
+<!--头部代码结束-->
+
+<div class="hr tp-div-nexthr" style="margin-top: 0;margin-bottom: 0;padding: 0;"></div>
+<div class="container pb-15">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="span12">
+
+
+            <!--内容页面-->
+
+            <div class="label-div b-30 border-all pt-5 t-20" style="position: relative; padding-left: 0;">
+
+
+                <div class="mmdh"><a href="">供应</a> > <a href="">{$host.pkind_name}</a> > <a href="">{$host.title}</a></div>
+
+
+                <div class="news-list">
+                    <div class="clearfix pt-3">
+                        <div class="index-news-img spanm3 pull-left pt-5 l-15">
+                            <a href="javascript:;" title="" target="_blank" rel="bookmark">
+                                <img class="" alt="" src="{$host.pic}"/></a>
+                        </div>
+                        <div class="offset3 intro t-5">
+                            <h4>
+                                <switch name="host.user_attest">
+                                    <case value="0">
+                                        <span class="pull-right runing runinged"><a href="">未认证</a></span>
+                                    </case>
+                                    <case value="1">
+                                        <span class="pull-right runing runinged"><a href="">已认证</a></span>
+                                    </case>
+                                    <case value="2">
+                                        <span class="pull-right runing runinged"><a href="">认证失败</a></span>
+                                    </case>
+                                </switch>
+
+
+
+                                <a title=""  target="_blank" href="javascript:;">{$host.name}</a></h4>
+
+                            <p class="t-1 mt1 t-10">{$host.name}</p>
+                            <div class="clearfix" style="height: 22px;margin-top: 0px;">
+                                <div class="pull-left myxx">
+
+                                    <i class="m">{$host.time}</i>
+                                </div>
+
+                                <div class="pull-right">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!--第二部分开始-->
+
+            <div class="label-div b-30 border-all pt-5 t-20" style="position:relative; padding-left:26px;">
+
+
+                <div class="second">
+
+                    <h5 class="mmh5 b-20">供应产品</h5>
+                    <div class="mmcontent">
+                        {$host.title}
+                    </div>
+
+                    <h5 class="mmh5 t-20 b-20">规格与材质</h5>
+                    <div class="mmcontent">
+                        {$host.material}
+                    </div>
+
+                    <h5 class="mmh5 t-20 b-20">需求量</h5>
+                    <div class="mmcontent">
+                        {$host.number}
+                    </div>
+                    <h5 class="mmh5 t-20 b-20">交货地</h5>
+                    <div class="mmcontent">
+                        {$host.address}
+                    </div>
+
+                    <h5 class="mmh5 t-20 b-20">补充说明</h5>
+                    <div class="mmcontent">
+                        {$host.body}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--第二部分结束-->
+            <div class="liuyan">
+                <form action="{:U('/liuyan')}" method="post">
+                    <input type="hidden" value="{$host.id}" name="article_id">
+                    <input type="hidden" value="1" name="act">
+
+                    <h3>用户留言：</h3>
+                    <dl>
+
+                        <dd>
+                            <input type="text" value="" name="title">
+                        </dd>
+                        <dd>
+                            <textarea name="body"></textarea>
+                        </dd>
+                        <dd>
+                            <input type="submit">
+                        </dd>
+                    </dl>
+
+                </form>
+            </div>
+
+
+        </div>
+
+
+        <!--右侧代码-->
+        <div class="span4">
+
+
+
+            <div class="label-div t-20 border-all">
+                <div class="l-15">
+                    <h3 class="label-title border-b b-15 small clearfix" style="padding-bottom: 14px;">联系方式</h3>
+                </div>
+                <div class="label-main tody-hot l-15 contact_person" >
+                    <ul>
+                        <li>QQ：{$link.qq}</a></li>
+                        <li>联系人：{$link.name}</li>
+                        <li>客服电话：{$Think.CONFIG.telephone}</li>
+                        <li>传真：{$link.fax}</li>
+                        <li>邮箱：{$link.email}</li>
+                        <li>邮编：{$link.code}</li>
+                     </ul>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<!--右侧代码结束-->
+
+
+<!-- /container -->
+
+<div class="container">
+
+    <div class="hr"></div>
+
+</div>
+
+<!-- /container -->
+<block name='include'><include file='./App/Home/View/Public/footer.html'/></block>
+
+</body>
+</html>
